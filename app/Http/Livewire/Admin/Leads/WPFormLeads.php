@@ -41,7 +41,7 @@ class WPFormLeads extends Component
     public function loadRelatedAppointments($lead_id)
     {
     $this->appointment = Appointment::where('lead_id', $lead_id)->first();
-    //dd($this->appointment);
+    dd($this->appointment);
     }
     /* store lead data */
     public function create()
