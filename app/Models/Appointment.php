@@ -31,4 +31,8 @@ class Appointment extends Model
     {
         return $this->belongsTo(Lead::class);
     }
+    public function creater()
+    {
+        return $this->belongsTo(User::class , 'created_by');
+    }
 }

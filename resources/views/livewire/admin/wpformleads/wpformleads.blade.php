@@ -63,7 +63,13 @@
                                     
                                         @endif
                                     @else
-                                            <a href="#" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#AppointmentData" wire:click="appointmentdata({{$item}})">{{$lang->data['appointment_scheduled']??'Appointment Scheduled'}}</a> 
+                                            <a 
+                                            href="#" 
+                                            class="btn btn-sm btn-success" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#AppointmentData" 
+                                            wire:click="loadRelatedAppointments({{$item->id}})">
+                                            {{$lang->data['appointment_scheduled']??'Appointment Scheduled'}}</a>
                                     @endif
                                 @endif
                             </td>
@@ -227,4 +233,35 @@
             </div>
         </div>
     </div>
+    
+   <div class="modal fade" id="AppointmentData" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{$lang->data['add_new_lead']??'Appointment Details'}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" wire:key="modal-content">
+                
+                <p><strong>Start Date:</strong> {{ $appointment->start_date ?? '' }}</p>
+                <p><strong>Start Time:</strong> {{ $appointment->start_time ?? '' }}</p>
+                <p><strong>End Time:</strong> {{ $appointment->end_time ?? '' }}</p>
+                <p><strong>Quotation Number:</strong> {{ $appointment->quotation_no ?? '' }}</p>
+                <!-- Add more appointment details as needed -->
+                <p><strong>Lead:</strong> {{ $appointment->lead->name ?? '' }}</p>
+                <p><strong>Type:</strong> {{ $appointment->type ?? '' }}</p>
+                <p><strong>Created By:</strong> {{ $appointment->creater->name ?? '' }}</p>
+                <p><strong>Customer Status:</strong> {{ $appointment->customer_status ?? '' }}</p>
+                <p><strong>Status:</strong> {{ $appointment->status ?? '' }}</p>
+                <p><strong>Created At:</strong> {{ $appointment->created_at ?? '' }}</p>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{$lang->data['close']??'Close'}}</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 </div>

@@ -22,6 +22,7 @@ class PrintInvoices extends Component
         $this->percentage = $per;
         $this->no = $no;
         $this->invoice =Invoice::find($invoice);
+        //dd($this->invoice);
         if(!$this->invoice)
         {
             abort(404);

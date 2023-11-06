@@ -9,12 +9,13 @@ use Livewire\Component;
 
 class WPFormLeads extends Component
 {
-    public $leads,$name,$description,$lead,$is_active = true,$lang,$start_time,$end_time,$start_date,$end_date,$lead_id;
+    public $leads,$name,$description,$lead,$is_active = true,$lang,$start_time,$end_time,$start_date,$end_date,$lead_id , $relatedAppointment;
     public $phone,$email,$address,$search="";
     /* render the page */
     public function render()
     {
         $this->getData();
+        //$this->appointment = null;
         return view('livewire.admin.wpformleads.wpformleads');
     }
     /* process before render */
@@ -34,6 +35,13 @@ class WPFormLeads extends Component
             $query = $query->where('name','like','%'.$this->search.'%');
         }
         $this->leads = $query->get();
+
+       
+    }
+    public function loadRelatedAppointments($lead_id)
+    {
+    $this->appointment = Appointment::where('lead_id', $lead_id)->first();
+    //dd($this->appointment);
     }
     /* store lead data */
     public function create()

@@ -36,4 +36,8 @@ class Customer extends Model
     {
         return $this->belongsTo(Lead::class);
     }
+    public function quotation()
+    {
+        return $this->belongsTo(Quotation::class , 'lead_id' , 'lead_id');
+    }
 }

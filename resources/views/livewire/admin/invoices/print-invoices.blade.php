@@ -1,197 +1,161 @@
 <div>
-@if($printer == 1)
-<div class="card">
-        <div class="card-body">
-        <div class="invoice-box table-height">
-                        <table cellpadding="0" cellspacing="0"
-                            class="view-table">
-                            <tbody>
-                                <tr class="top">
-                                    <td colspan="6" class="view-td1">
-                                        <table class="view-table1">
-                                            <tbody>
-                                                <tr>
-                                                    <td
-                                                        class="view-td2">
-                                                        <font class="view-f1">
-                                                            <font
-                                                                class="view-f2">
-                                                                {{$lang->data['customer_info'] ?? 'Customer Info'}}
-                                                            </font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{ $invoice->customer->name }}
-                                                            </font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                            class="view-f3">
-                                                                @if ($invoice->address)
-                                                                    {{ $invoice->address }}
-                                                                @else
-                                                                    -
-                                                                @endif
-                                                            </font>
-                                                        </font><br>
-                                                    </td>
-                                                    <td
-                                                        class="view-f4">
-                                                        <font class="view-f5">
-                                                            <font
-                                                                class="view-f6">
-                                                                {{$lang->data['company_info'] ?? 'Company Info'}}</font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{$store_name}} </font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{$store_email}}</font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{$store_phone}}</font>
-                                                        </font><br>
-                                                    </td>
-                                                    <td
-                                                        class="view-f7">
-                                                        <font class="view-f8">
-                                                            <font
-                                                                class="view-f6 ">
-                                                                {{$lang->data['invoice_info'] ?? 'invoice Info'}}</font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{$lang->data['invoice_no'] ?? 'invoice No'}}: </font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{$lang->data['date'] ?? 'Date'}}:</font>
-                                                        </font><br>
-                                                    </td>
-                                                    <td
-                                                        class="view-f9">
-                                                        <font class="view-f10">
-                                                            <font
-                                                                class="view-f11">
-                                                                &nbsp;</font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{ $invoice->invoice_number }}@if($no!=0)-{{$no}}@endif </font>
-                                                        </font><br>
-                                                        <font class="view-align1">
-                                                            <font
-                                                                class="view-f3">
-                                                                {{ $invoice->date }}</font>
-                                                        </font><br>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-            <div class="row">
-                <table class="table table-striped table-binvoiceed table-sm">
-                    <thead class="bg-secondary-light">
-                        <tr class="text-sm">
-                            <th>{{$lang->data['sl'] ?? 'Sl'}}</th>
-                            <th>{{$lang->data['item'] ?? 'Item'}}</th>
-                            <th class="text-center">{{$lang->data['qty'] ?? 'Qty'}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($invoice->details as $item)
-                            <tr class="text-sm">
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>
-                                    <b> {{ Str::limit($item->product->name,40) }}</b>
-                                </td>
-                                <td class="text-center">
-                                    <span class="px-1">{{ $item->quantity }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                        {{-- <tr class="text-sm">
-                        <td>2</td>
-                        <td><b> Product 1 Long Name Handilling</b> </td>
-                        <td class="text-end">$200.00</td>
-                        <td class="text-center">
-                            <span class="px-1">2</span>
-                        </td>
-                        <td class="text-end">$400.00</td>
-                    </tr>
-                    <tr class="text-sm">
-                        <td>3</td>
-                        <td><b> Product 1 Long Name Handilling</b> </td>
-                        <td class="text-end">$200.00</td>
-                        <td class="text-center">
-                            <span class="px-1">2</span>
-                        </td>
-                        <td class="text-end">$400.00</td>
-                    </tr> --}}
-
-                    </tbody>
-                    <tfoot>
-                        
-                        {{-- <tr>
-                            <td colspan="5" class="text-end">{{$lang->data['tax_total'] ?? 'Tax Total'}}
-                                ({{ number_format($invoice->sales_tax, 2) }}%):</td>
-
-                            <td class="text-end">{{getCurrency()}}{{ number_format($invoice->tax_amount, 2) }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="text-end">{{$lang->data['subtotal'] ?? 'Sub Total'}}:</td>
-
-                            <td class="text-end">{{getCurrency()}}{{ number_format($invoice->sub_total, 2) }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="text-end">{{$lang->data['discount'] ?? 'Discount'}}
-                            ({{ number_format($invoice->discount, 2) }}%):</td>
-
-                            <td class="text-end">{{getCurrency()}}{{ number_format($invoice->discount_amount, 2) }}</td>
-                        </tr> --}}
-                        @php
-                            $total=($invoice->total_amount/100)*$percentage;
-                        @endphp
-                        <tr>
-                            <td colspan="2" class="text-end"><strong>{{$lang->data['bill_total'] ?? $percentage.'% Bill Amount'}}:</strong></td>
-
-                            <td class="text-end"><strong>{{getCurrency()}}{{ number_format($total, 2) }}</strong></td>
-                        </tr>
-
-                    </tfoot>
-                </table>
+   @if($printer == 1)
+   <div class="card">
+      <div class="card-body">
+         <div class="row">
+            <div class="col-12">
+               <div class="d-flex flex-row">
+                  <div class="col-md-6">
+                     @php
+                     $logo = '/uploads/logo/1698076505.png';
+                     @endphp
+                     <img src="{{ $logo }}" alt="Company Logo" style="width: auto; height: auto; max-width: 60%; max-height: 60%;">
+                  </div>
+                  <div class="col-md-6 text-end">
+                     <div class="address-info">
+                        {{$address}}<br>
+                        <span style="color: #F4864C;">M</span> &nbsp;{{$store_phone}}<br>
+                        <span style="color: #F4864C;">E</span> &nbsp;{{$store_email}}<br>
+                        <span style="color: #F4864C;">W</span> &nbsp;www.vanleeuwenairconditioning.nl
+                     </div>
+                  </div>
+               </div>
             </div>
-
-
-
-
-
-
-        </div>
-    </div>
-    @endif
-   <script type="text/javascript">
-    "use strict";
-       window.onload = function() {
-           window.print();
-           setTimeout(function() {
-               window.close();
-           }, 1);
-       }
-   </script>
-                        </div>
+         </div>
+         <hr>
+         <div class="invoice-box table-height">
+            <table cellpadding="0" cellspacing="0"
+               class="view-table">
+               <tbody>
+                  <tr class="top">
+                     <td colspan="6" class="view-td1">
+                        <table class="view-table1">
+                           <tbody>
+                              <tr>
+                                 <td
+                                    class="view-td2">
+                                    <font class="view-f1">
+                                    <font
+                                       class="view-f2">
+                                    {{$lang->data['customer_info'] ?? 'Customer Info'}}
+                                    </font>
+                                    </font><br>
+                                    <font class="view-align1">
+                                    <font
+                                       class="view-f3">
+                                    {{ $invoice->customer->name }}
+                                    </font>
+                                    </font><br>
+                                    <font class="view-align1">
+                                    <font
+                                       class="view-f3">
+                                    @if ($invoice->address)
+                                    {{ $invoice->address }}
+                                    @else
+                                    -
+                                    @endif
+                                    </font>
+                                    </font><br>
+                                 </td>
+                                 <td
+                                    class="view-f4 text-end">
+                                    <font class="view-f5">
+                                    <font
+                                       class="view-f6">
+                                    {{$lang->data['company_info'] ?? 'Billing Details'}}</font>
+                                    </font><br>
+                                    <font class="view-align1">
+                                    <!-- <font
+                                       class="view-f3">
+                                    {{$store_name}} </font> -->
+                                    <font
+                                       class="view-f3">
+                                    {{$lang->data['invoice_date'] ?? 'invoice Date'}}: {{ $invoice->date ?? '--'}} </font>
+                                    </font>
+                                    </font><br>
+                                    <font class="view-align1">
+                                    <font
+                                       class="view-f3">
+                                    {{$lang->data['quotation_No'] ?? 'Quotation No'}}: {{ $invoice->customer->quotation->quotation_number ?? '--'}} </font>
+                                    </font>
+                                    </font><br>
+                                    <font class="view-align1">
+                                    <font
+                                       class="view-f3">
+                                    {{$lang->data['invoice_no'] ?? 'invoice No'}}: {{ $invoice->invoice_number ?? '--'}}</font>
+                                    </font>
+                                    </font><br>
+                                 </td>
+                               
+                              </tr>
+                            
+                           </tbody>
+                        </table>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="row">
+            <span class="text-center">Invoice Upon Delivery {{ '80'}}%</span>
+            <table class="table table-striped table-binvoiceed table-sm">
+               <thead class="bg-secondary-light">
+            
+                  <tr class="text-sm">
+                     <th>{{$lang->data['sl'] ?? 'Sl'}}</th>
+                     <th>{{$lang->data['product_servise'] ?? 'Product/Service'}}</th>
+                     <th class="text-center">{{$lang->data['btw'] ?? 'Btw'}}</th>
+                     <th class="text-center">{{$lang->data['total'] ?? 'Total'}}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  @foreach ($invoice->details as $item)
+                  <tr class="text-sm">
+                     <td>{{ $loop->index + 1 }}</td>
+                     <td>
+                        <b> {{ Str::limit($item->product->name,40) }}</b>
+                     </td>
+                     <td class="text-center">
+                        <span class="px-1">{{ $item->tax }}</span>
+                     </td>
+                     <td class="text-center">
+                        <span class="px-1">{{ $item->total ?? 0 }}</span>
+                     </td>
+                  </tr>
+                  @endforeach
+                 
+               </tbody>
+               <tfoot>
+                 
+                  @php
+                  $total=($invoice->total_amount/100)*$percentage;
+                  @endphp
+                  <tr>
+                     <td colspan="2" class="text-end"><strong>{{$lang->data['total_amt_exc_val'] ?? 'Total Amt Execl. VAT'}}:</strong></td>
+                     <td class="text-end"><strong>{{ getCurrency() }}{{ number_format($invoice->total_amount, 2) }}</strong></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" class="text-end"><strong>{{ $lang->data['btw'] ?? $invoice->tax_amount ?? 0 }}:</strong></td>
+                     <td class="text-end"><strong>{{getCurrency()}}{{ number_format($invoice->tax_amount, 2) }}</strong></td>
+                  </tr>
+                  <hr>
+                  <tr>
+                     <td colspan="2" class="text-end"><strong>{{$lang->data['total_amt_inc_vat'] ?? 'Total Amt Inc VAT' }}:</strong></td>
+                     <td class="text-end"><strong>{{getCurrency()}}{{ number_format($invoice->total_amount - $invoice->tax_amount, 2) }}</strong></td>
+                  </tr>
+               </tfoot>
+            </table>
+         </div>
+      </div>
+   </div>
+   @endif
+   <!-- <script type="text/javascript">
+      "use strict";
+         window.onload = function() {
+             window.print();
+             setTimeout(function() {
+                 window.close();
+             }, 1);
+         }
+   </script> -->
+</div>
